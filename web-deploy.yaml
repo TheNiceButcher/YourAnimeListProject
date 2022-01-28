@@ -12,8 +12,8 @@ spec:
         app: yal-webapp
     spec:
       containers:
-      - image: thenicebutcher/youranimelist:v0.2
-        name: test-web
+      - image: thenicebutcher/youranimelist:v1.1
+        name: yal-webapp
         env:
         - name: POSTGRES_HOST
           value: postgres
@@ -24,6 +24,6 @@ spec:
         - name: POSTGRES_USER
           value: lelouch
         - name: POSTGRES_PASSWORD
-          value: pwd
+          value: Lemeilleur
         ports:
         - containerPort: 8080
