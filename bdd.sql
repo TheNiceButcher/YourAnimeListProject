@@ -1,5 +1,4 @@
-\c youranimelistdb lelouch
-
+--\c youranimelistdb lelouch
 CREATE TABLE Animes(
   nom TEXT NOT NULL,
   nanime SERIAL PRIMARY KEY

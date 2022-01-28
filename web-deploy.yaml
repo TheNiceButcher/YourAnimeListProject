@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp
+  name: yal_webapp
 spec:
   selector:
     matchLabels:
-      app: webapp
+      app: yal_webapp
   template:
     metadata:
       labels:
-        app: webapp
+        app: yal_webapp
     spec:
       containers:
       - image: thenicebutcher/youranimelist:v0.1
