@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+spec:
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - image: thenicebutcher/youranimelist:v0.1
+        name: test-web
+        env:
+        - name: POSTGRES_HOST
+          value: postgres
+        - name: POSTGRES_PORT
+          value: "5432"
+        - name: POSTGRES_DATABASE
+          value: youranimelistdb
+        - name: POSTGRES_USER
+          value: lelouch
+        - name: POSTGRES_PASSWORD
+          value: Lemeilleur
+        ports:
+        - containerPort: 8080

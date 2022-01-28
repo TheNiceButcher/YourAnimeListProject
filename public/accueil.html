@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>YourAnimeList - Vos animes préférés à porté de main</title>
+		<link rel="icon" type="image/png" href="/pictures/logo.gif"/>
+		<link rel="stylesheet" href="twatter.css">
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div id="all">
+			<div id="connexion">
+				<form class="info_connect" action="http://localhost:8080/connect" method="post">
+					<label for="pseudo">Pseudo</label><input type="text" name="pseudo"> <br>
+					<label for="pwd">Mot de passe</label><input type="password" name="pwd"> <br>
+					<input type="submit" name="" value="Se connecter">
+				</form>
+			</div>
+			<div class="jumbotron" class="baniere">
+				<img src="/pictures/logo.gif" alt="Logo" class="logo">
+				<div class="display-4"> Your Anime List </div>
+			</div>
+			<div class="anime">
+				<anime
+					v-for="anime in animes" v-bind:anime="anime">
+				</anime>
+			</div>
+		</div>
+		<script src="accueil.js"></script>
+	</body>
+</html>

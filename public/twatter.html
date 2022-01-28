@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>YourAnimeList - Vos animes préférés à porté de main</title>
+		<link rel="icon" type="image/png" href="/pictures/logo.png"/>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="../twatter.css">
+	</head>
+	<body>
+		<div id="all">
+			<div class="info_connect">
+					<img class="avatar" v-bind:src="client.avatar" alt="Avatar" id = "profile">
+					<p> Bonjour {{client.pseudo}} </p>
+					<a v-bind:href="client.modif_profil" ><button type="button" name="button">Modifier votre profil</button></a>
+					<form action="http://localhost:8080/" method="get">
+						<input type="submit" name="" value="Se deconnecter">
+					</form>
+			</div>
+			<div class="jumbotron" class="baniere">
+				<img src="/pictures/logo.png" alt="Logo" class="logo">
+				<div class="display-4"> YourAnimeList - Annuaire populaire d'animes japonais </div>
+			</div>
+			<div class="nouveau_message" id="poste">
+				<form class = "pu" v-on:submit.prevent="publier">
+					<textarea id="publi" placeholder="Votre publication" v-model="publi_en_cours" rows="6" cols="50"></textarea>
+					<button>Poster</button>
+				</form>
+			</div>
+			<div class="filtres" v-if="client.connected">
+				<label for="">Filtres possibles</label> <br>
+				<input type="checkbox" v-model="global.filtres.ateveryone">Everyone</input> <br>
+				<input type="checkbox" v-model="global.filtres.atclient">@{{client.pseudo}}</input> <br>
+				<input type="checkbox" v-model="global.filtres.atpseudo">Pseudo</input>
+				<input type="text" v-model="global.filtres.user"> <br>
+				<input type="checkbox" v-model="global.filtres.hashtag">Hashtag</input>
+				<input type="text" v-model="global.filtres.nomhash"> <br>
+				<input type="checkbox" v-model="global.filtres.abo">Abonnements</input>
+				<input type="radio" v-model="global.filtres.ouet" value="et">Et</input>
+				<input type="radio" v-model="global.filtres.ouet" value="ou">Ou</input> <br>
+				<button v-on:click="defaut">Retablir valeurs par défaut</button>
+			</div>
+			<div class="publications" class = 'container'>
+				<publication
+					v-for="message in messages" v-bind:key="message.nmsg" v-bind:publi="message" v-bind:client="client" v-bind:global="global">
+				</publication>
+			</div>
+		</div>
+		<script src="../twatter.js"></script>
+	</body>
+</html>
