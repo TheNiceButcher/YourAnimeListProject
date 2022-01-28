@@ -8,7 +8,7 @@ const client = new Client({
   user: 'lelouch',
   host: 'postgres',
   database: 'youranimelistdb',
-  password: 'Lemeilleur',
+  password: 'pwd',
   port: 5432,
 });
 client.connect();
@@ -17,7 +17,7 @@ var desc = [{nanime: 1, desc: "Histoire d'un jeune homme fort beau gosse"}];
 var user = [{username: 'harris', nuser: 1}];*/
 server.use(express.static('public'));
 server.use(bodyparser.urlencoded({ extended: false }));
-fs.readFile('bdd.sql', 'utf8' , (err, data) => {
+/*fs.readFile('bdd.sql', 'utf8' , (err, data) => {
   if (err) {
     console.error(err);
     return
@@ -27,7 +27,7 @@ fs.readFile('bdd.sql', 'utf8' , (err, data) => {
                 console.log(err1);
                 return
         }});
-});
+});*/
 
 server.get("/",function (req,res) {
 	res.sendFile('accueil.html',{root:"public"});

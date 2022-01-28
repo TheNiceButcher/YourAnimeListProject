@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: yal_webapp
+  name: yal-webapp
 spec:
   type: NodePort
   ports:
@@ -10,4 +10,4 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app: yal_webapp
+    app: yal-webapp

@@ -1,7 +1,7 @@
 #!/bin/sh
 
-kubectl delete services yal_webapp
-kubectl delete deployment yal_webapp
+kubectl delete services yal-webapp
+kubectl delete deployment yal-webapp
 
 kubectl delete services postgres
 kubectl delete deployment postgres

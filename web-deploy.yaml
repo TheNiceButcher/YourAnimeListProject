@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: yal_webapp
+  name: yal-webapp
 spec:
   selector:
     matchLabels:
-      app: yal_webapp
+      app: yal-webapp
   template:
     metadata:
       labels:
-        app: yal_webapp
+        app: yal-webapp
     spec:
       containers:
-      - image: thenicebutcher/youranimelist:v0.1
+      - image: thenicebutcher/youranimelist:v0.2
         name: test-web
         env:
         - name: POSTGRES_HOST
@@ -24,6 +24,6 @@ spec:
         - name: POSTGRES_USER
           value: lelouch
         - name: POSTGRES_PASSWORD
-          value: Lemeilleur
+          value: pwd
         ports:
         - containerPort: 8080
