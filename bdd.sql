@@ -2,7 +2,7 @@
 CREATE TABLE Animes(
   nom TEXT NOT NULL,
   nanime SERIAL PRIMARY KEY
-) IF NOT EXISTS;
+);
 CREATE TABLE Utilisateur (
         pseudo TEXT PRIMARY KEY,
         avatar TEXT DEFAULT '/pictures/default.jpeg',

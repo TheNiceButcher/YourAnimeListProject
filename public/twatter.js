@@ -80,19 +80,19 @@ Vue.component('publication',{
 
 		},
 		abonne : function () {
-			$.get("http://localhost:8080/abonne",{abonne : this.client.pseudo, abonnement : this.publi.pseudo},
+			$.get("/abonne",{abonne : this.client.pseudo, abonnement : this.publi.pseudo},
 				function (data) {
 
 				});
 		},
 		desabonne : function () {
-			$.get("http://localhost:8080/desabonne",{abonne : this.client.pseudo, abonnement : this.publi.pseudo },
+			$.get("/desabonne",{abonne : this.client.pseudo, abonnement : this.publi.pseudo },
 				function (data) {
 
 				});
 		},
 		react : function () {
-				$.get("http://localhost:8080/react",{pseudo : this.client.pseudo,nmessage : this.publi.nmessage,reaction : this.reaction},
+				$.get("/react",{pseudo : this.client.pseudo,nmessage : this.publi.nmessage,reaction : this.reaction},
 				function (data){
 				});
 		},
@@ -195,20 +195,20 @@ var twatter = new Vue({
 		setInterval(() => {
 			var d = this.dernier_import;
 			var result = convert_date(d);
-			$.get("http://localhost:8080/msg/",{date:result},function (data) {
+			$.get("/msg/",{date:result},function (data) {
 				ajout_msg(data);
 			});
 			this.dernier_import = new Date();
-			$.get("http://localhost:8080/abos",{pseudo: this.client.pseudo},function (data) {
+			$.get("/abos",{pseudo: this.client.pseudo},function (data) {
 				list_abos(data);
 			});
-			$.get("http://localhost:8080/avatars",function (data) {
+			$.get("/avatars",function (data) {
 				avatars(data);
 			});
-			$.get("http://localhost:8080/like",function(data){
+			$.get("/like",function(data){
 				like(data);
 			});
-			$.get("http://localhost:8080/dislike",function(data){
+			$.get("/dislike",function(data){
 				dislike(data);
 			});
 		},500);
@@ -218,7 +218,7 @@ var twatter = new Vue({
 			console.log(this.publi_en_cours);
 			if (this.publi_en_cours != "")
 			{
-				$.post("http://localhost:8080/publi/",{pseudo:this.client.pseudo,message:this.publi_en_cours.replace("'","\'\'")},
+				$.post("/publi/",{pseudo:this.client.pseudo,message:this.publi_en_cours.replace("'","\'\'")},
 					function (data) {
 					});
 				this.publi_en_cours = "";
@@ -236,7 +236,7 @@ var twatter = new Vue({
 		},
 		retour_sauver : function () {
 			console.log("Salut " + this.client.couleur);
-			$.get("http://localhost:8080/modif_profil",{pseudo : this.client.pseudo, avatar : this.client.avatar, couleur : this.client.couleur},
+			$.get("/modif_profil",{pseudo : this.client.pseudo, avatar : this.client.avatar, couleur : this.client.couleur},
 				function (data) {
 				});
 		}
@@ -292,7 +292,7 @@ function dislike(data) {
 	twatter.global.dislikes = data;
 }
 /*function reaction(nmessage,pseudo){
-	return $.get("http://localhost:8080/react",{pseudo : pseudo,nmsg : nmessage},function () {
+	return $.get("/react",{pseudo : pseudo,nmsg : nmessage},function () {
 
 	});
 }*/
@@ -304,11 +304,11 @@ function get_name_client() {
 	twatter.client.modif_profil += twatter.client.pseudo;
 };
 get_name_client();
-$.get("http://localhost:8080/info_client",{pseudo : twatter.client.pseudo},
+$.get("/info_client",{pseudo : twatter.client.pseudo},
 	function (data) {
 		avatar(data);
 });
-$.get("http://localhost:8080/react_client",{pseudo : twatter.client.pseudo},function (data) {
+$.get("/react_client",{pseudo : twatter.client.pseudo},function (data) {
 	reactions(data);
 });
 function reactions(data) {

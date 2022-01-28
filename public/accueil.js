@@ -20,7 +20,7 @@ var animetop = new Vue({
 	mounted: function () {
 		setInterval(() => {
 			var d = this.dernier_import;
-			$.get("http://localhost:8080/animes/",function (data) {
+			$.get("/animes/",function (data) {
 				ajout_anime(data)
 			});
 			this.dernier_import = new Date();
