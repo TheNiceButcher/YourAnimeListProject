@@ -13,7 +13,6 @@
   "description": "Projet pour le compte de l'UE Programmation Distribuée",
   "version": "1.0.0",
   "main": "server.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TheNiceButcher/YourAnimeListProject.git"

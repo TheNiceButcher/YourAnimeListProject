@@ -1,4 +1,4 @@
-Vue.component('anime',{
+/*Vue.component('anime',{
 	props:['anime','moyenne'],
 	methods: {
 			to_print : function () {
@@ -20,17 +20,41 @@ Vue.component('anime',{
 		},
 		lien : function () {
 			return "/anime/" + this.anime.nanime;
+		},
+		genre : function (){
+			return "Une dinguerie";
 		}
 	},
 	template:
-	"<div v-if=to_print() class = 'publi'> <a :href=\"lien\">{{anime.nom}}</a> {{moyenne_anime}}<br> </div>"
-});
+	"<div v-if=to_print()> <a :href=\"lien\">{{anime.nom}}</a>{{moyenne_anime}} {{genre}}<br> </div>"
+});*/
 var animetop = new Vue({
 	el: "#all",
 	data:{
 		animes: [],
 		moyenne : [],
+		recherche : '',
+		user : {
+			connecte : false,
+			pseudo : ''
+		},
 		dernier_import : new Date("1970-11-25")
+	},
+	methods:{
+		getmoyenne : function (id) {
+			if (this.moyenne.length != 0)
+			{
+				for (var i in this.moyenne) {
+					if (this.moyenne[i].nanime == id){
+						return this.moyenne[i].avg;
+					}
+				}
+			}
+			return "Aucune Note";
+		},
+		afficher : function (anime) {
+			return anime.nom.includes(this.recherche);
+		}
 	},
 	//Toutes les 500 ms, on voit s'il y a des nouveaux messages
 	mounted: function () {
@@ -48,7 +72,6 @@ var animetop = new Vue({
 });
 function ajout_anime(data) {
 	animetop.animes = data;
-	//animetop.animes.push({name : "HEllo",nanime:2});
 };
 function moyenne(data) {
   animetop.moyenne = data;

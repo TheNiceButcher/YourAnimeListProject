@@ -23,9 +23,26 @@
 				<div class="display-4"> Your Anime List </div>
 			</div>
 			<div class="anime">
-				<anime
-					v-for="anime in animes" v-bind:anime="anime" v-bind:moyenne="moyenne">
-				</anime>
+				<input type="text" v-model="recherche">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+				      <th scope="col">Nom</th>
+				      <th scope="col">Moyenne</th>
+				    </tr>
+					</thead>
+					<tbody>
+						<!--<anime
+							v-for="anime in animes" v-bind:anime="anime" v-bind:moyenne="moyenne">
+						</anime>-->
+						<tr v-for="anime in animes" v-if="afficher(anime)">
+				      <td>{{anime.nanime}}</td>
+				      <td>{{anime.nom}}</td>
+							<td>{{getmoyenne(anime.nanime)}}
+    				</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<script src="accueil.js"></script>
