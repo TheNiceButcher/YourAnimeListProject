@@ -1,24 +1,29 @@
 Vue.component('anime',{
 	props:['anime','moyenne'],
 	methods: {
-		to_print : function () {
+			to_print : function () {
 
-			return true;
+				return true;
+			},
 		},
-		moyenne : function () {
-			if (this.moyenne.length != 0)
-			{
-				for (var i in this.moyenne) {
-					if (this.moyenne[i].nanime == this.anime.nanime){
-						return this.moyenne[i].avg;
+		computed : {
+			moyenne_anime : function () {
+				if (this.moyenne.length != 0)
+				{
+					for (var i in this.moyenne) {
+						if (this.moyenne[i].nanime == this.anime.nanime){
+							return this.moyenne[i].avg;
+						}
 					}
 				}
-			}
-			return 0;
+				return "Aucune Note";
+		},
+		lien : function () {
+			return "/anime/" + this.anime.nanime;
 		}
 	},
 	template:
-	"<div v-if=to_print() class = 'publi'> {{anime.nom}} {{moyenne()}}<br> </div>"
+	"<div v-if=to_print() class = 'publi'> <a :href=\"lien\">{{anime.nom}}</a> {{moyenne_anime}}<br> </div>"
 });
 var animetop = new Vue({
 	el: "#all",
@@ -34,9 +39,9 @@ var animetop = new Vue({
 			$.get("/animes/",function (data) {
 				ajout_anime(data);
 			});
-			/*$.get("/note_moy",function (data) {
+			$.get("/note_moy",function (data) {
 				moyenne(data);
-			});*/
+			});
 			this.dernier_import = new Date();
 		},500);
 	}
