@@ -42,3 +42,5 @@ INSERT INTO Genre(genre,nanime) VALUES
 ('Shonen',2),
 ('Psychologique',1),
 ('Violent',2);
+INSERT INTO Notes(nanime,note,pseudo) VALUES
+(1,5,'Kira');

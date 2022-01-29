@@ -70,8 +70,8 @@ server.get("/list/:pseudo",function(req,res){
 server.get("/profile/:pseudo",function(req,res){
 
 });
-server.get("/note_moy/:nanime",function(req,res){
-  var requete = 'SELECT AVG(' + note + ') FROM Notes WHERE nanime = ' + req.params.nanime + ';';
+server.get("/note_moy",function(req,res){
+  var requete = 'SELECT nanime,AVG(note) FROM NOTES GROUP BY nanime';
   var r = client.query(requete,function (err,resp) {
 		if(err){
 			console.log(err);

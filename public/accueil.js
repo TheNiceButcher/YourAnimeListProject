@@ -1,11 +1,19 @@
 Vue.component('anime',{
-	props:['anime','genre'],
+	props:['anime','moyenne'],
 	methods: {
 		to_print : function () {
 
 			return true;
 		},
 		moyenne : function () {
+			if (this.moyenne.length != 0)
+			{
+				for (var i in this.moyenne) {
+					if (this.moyenne[i].nanime == this.anime.nanime){
+						return this.moyenne[i].avg;
+					}
+				}
+			}
 			return 0;
 		}
 	},
@@ -24,8 +32,11 @@ var animetop = new Vue({
 		setInterval(() => {
 			var d = this.dernier_import;
 			$.get("/animes/",function (data) {
-				ajout_anime(data)
+				ajout_anime(data);
 			});
+			/*$.get("/note_moy",function (data) {
+				moyenne(data);
+			});*/
 			this.dernier_import = new Date();
 		},500);
 	}
@@ -34,6 +45,9 @@ function ajout_anime(data) {
 	animetop.animes = data;
 	//animetop.animes.push({name : "HEllo",nanime:2});
 };
+function moyenne(data) {
+  animetop.moyenne = data;
+}
 $(document).ready(function () {
 	var url = window.location.href;
 	if(url.includes("?error"))
