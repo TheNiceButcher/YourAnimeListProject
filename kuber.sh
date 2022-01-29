@@ -12,7 +12,7 @@ kubectl apply -f postgres-service.yaml
 #echo $POD
 #sleep 10
 #kubectl cp bdd.sql $POD:/.
-#kubectl exec -it  pod/$POD -- psql -f bdd.sql -U admin -d postgresdb
+#kubectl exec -it  pod/$POD -- psql -f bdd.sql -U postgres -d youranimelistdb
 
 kubectl apply -f web-deploy.yaml
 kubectl apply -f webservice.yaml
