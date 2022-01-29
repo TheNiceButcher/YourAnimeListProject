@@ -12,7 +12,7 @@ spec:
         app: yal-webapp
     spec:
       containers:
-      - image: thenicebutcher/yal:v1.4
+      - image: thenicebutcher/yal:v1.17
         name: yal-webapp
         env:
         - name: POSTGRES_HOST

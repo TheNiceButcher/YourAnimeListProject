@@ -29,6 +29,7 @@
 						<tr>
 							<th scope="col">#</th>
 				      <th scope="col">Nom</th>
+							<th scope="col">Genre</th>
 				      <th scope="col">Moyenne</th>
 				    </tr>
 					</thead>
@@ -38,8 +39,9 @@
 						</anime>-->
 						<tr v-for="anime in animes" v-if="afficher(anime)">
 				      <td>{{anime.nanime}}</td>
-				      <td>{{anime.nom}}</td>
-							<td>{{getmoyenne(anime.nanime)}}
+				      <td><a :href="lien(anime.nanime)">{{anime.nom}}</a></td>
+							<td>{{getgenre(anime.nanime)}}</td>
+							<td>{{getmoyenne(anime.nanime)}}</td>
     				</tr>
 					</tbody>
 				</table>

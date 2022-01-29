@@ -71,7 +71,19 @@ server.get("/profile/:pseudo",function(req,res){
 
 });
 server.get("/note_moy",function(req,res){
-  var requete = 'SELECT nanime,AVG(note) FROM NOTES GROUP BY nanime';
+  var requete = 'SELECT nanime,ROUND(CAST(AVG(note) AS NUMERIC),2) FROM NOTES GROUP BY nanime';
+  var r = client.query(requete,function (err,resp) {
+		if(err){
+			console.log(err);
+			return;
+		}
+    console.log("Coucou moyenne");
+		var r = resp.rows;
+		res.json(r);
+	});
+});
+server.get("/genres",function (req,res) {
+  var requete = 'SELECT * FROM Genre';
   var r = client.query(requete,function (err,resp) {
 		if(err){
 			console.log(err);

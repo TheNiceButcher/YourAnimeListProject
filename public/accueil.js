@@ -33,6 +33,7 @@ var animetop = new Vue({
 	data:{
 		animes: [],
 		moyenne : [],
+		genres : [],
 		recherche : '',
 		user : {
 			connecte : false,
@@ -46,7 +47,7 @@ var animetop = new Vue({
 			{
 				for (var i in this.moyenne) {
 					if (this.moyenne[i].nanime == id){
-						return this.moyenne[i].avg;
+						return this.moyenne[i].round;
 					}
 				}
 			}
@@ -54,6 +55,18 @@ var animetop = new Vue({
 		},
 		afficher : function (anime) {
 			return anime.nom.includes(this.recherche);
+		},
+		lien : function (id) {
+			return "/anime/" + id;
+		},
+		getgenre : function(id){
+			var result = '';
+			for (var i in this.genres) {
+				if (this.genres[i].nanime == id){
+					result += this.genres[i].genre + ",";
+				}
+			}
+			return result;
 		}
 	},
 	//Toutes les 500 ms, on voit s'il y a des nouveaux messages
@@ -66,8 +79,11 @@ var animetop = new Vue({
 			$.get("/note_moy",function (data) {
 				moyenne(data);
 			});
+			$.get("/genres",function(data){
+				genre(data);
+			})
 			this.dernier_import = new Date();
-		},500);
+		},1000);
 	}
 });
 function ajout_anime(data) {
@@ -75,6 +91,9 @@ function ajout_anime(data) {
 };
 function moyenne(data) {
   animetop.moyenne = data;
+};
+function genre(data) {
+	animetop.genres = data;
 }
 $(document).ready(function () {
 	var url = window.location.href;
