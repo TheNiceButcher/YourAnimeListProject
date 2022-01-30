@@ -103,3 +103,13 @@ $(document).ready(function () {
 
 	}
 });
+function get_name_client() {
+	var url = window.location.href;
+	if(url.includes('/home/')){
+		var i = url.lastIndexOf('/')+1;
+		animetop.user.connected = true;
+		animetop.user.pseudo = url.substring(i);
+		/*twatter.client.modif_profil += twatter.client.pseudo;*/
+	}
+};
+get_name_client();

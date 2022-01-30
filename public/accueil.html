@@ -11,12 +11,20 @@
 	</head>
 	<body>
 		<div id="all">
-			<div id="connexion">
+			<div id="connexion" v-if="!user.connecte">
 				<form class="info_connect" action="/connect" method="post">
 					<label for="pseudo">Pseudo</label><input type="text" name="pseudo"> <br>
 					<label for="pwd">Mot de passe</label><input type="password" name="pwd"> <br>
 					<input type="submit" name="" value="Se connecter">
 				</form>
+			</div>
+			<div class="info_connect" v-if="user.connecte">
+					<!--<img class="avatar" v-bind:src="client.avatar" alt="Avatar" id = "profile"> -->
+					<p> Bonjour {{user.pseudo}} </p>
+					<!--<a v-bind:href="client.modif_profil" ><button type="button" name="button">Modifier votre profil</button></a> -->
+					<form action="/" method="get">
+						<input type="submit" name="" value="Se deconnecter">
+					</form>
 			</div>
 			<div class="jumbotron" class="baniere">
 				<img src="/pictures/logo.gif" alt="Logo" class="logo">
@@ -30,7 +38,7 @@
 							<th scope="col">#</th>
 				      <th scope="col">Nom</th>
 							<th scope="col">Genre</th>
-				      <th scope="col">Moyenne</th>
+				      <th scope="col">Moyenne / 5</th>
 				    </tr>
 					</thead>
 					<tbody>
