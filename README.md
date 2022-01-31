@@ -27,6 +27,13 @@ Kira a dans sa liste Code Geass et l'a noté 5/5.
 Le projet est composé ainsi:
 - Les fichiers de configuration .yaml servant au déploiement Kubernetes,
 - `server.js` qui gère le back-end du site,
+- `package*.json` -> gère les dépendances de NodeJS
 - `Dockerfile` : avec la commande `docker build -t nom .` crée un conteneur avec le serveur Web seul (sans la base de données),
-- `/public` est un répertoire contenant tous les fichiers nécessaires au serveur Nodejs,
-- `bdd.sql` permet l'initialisation de la base de données.
+- `bdd.sql` permet l'initialisation de la base de données,
+- `/public` est un répertoire contenant tous les fichiers nécessaires au serveur Nodejs avec :
+    - `accueil.{js,html}` -> gère la page d'accueil et définit les différents champs de Vuejs
+    - `anime.css` -> gestion CSS
+    - `anime.{js,html}` -> gère les pages des animes
+    - `erreur.html` -> gère les erreurs de redirections
+    - `profil.{js,html}` -> gère les pages des profils utilisateurs
+    - `modif_profil.html` -> gère la modification du profil (avatar,description)
