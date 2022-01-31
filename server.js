@@ -248,6 +248,10 @@ server.get("/info_user",function (req,res) {
     res.json(resp.rows);
   });
 });
+server.put("/modif_note",function (req,res) {
+  var requete = 'DELETE FROM Notes WHERE pseudo Like \'' + req.body.pseudo + '\' AND nanime = ' + req.body.nanime + ";";
+  requete += "INSERT INTO ";
+});
 server.use(function (req,res) {
 	res.sendFile("erreur.html",{root:"public"});
 });

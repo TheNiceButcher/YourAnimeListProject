@@ -20,7 +20,7 @@
 					</form>
 			</div>
 			<div class="jumbotron" class="baniere">
-				<img src="/pictures/logo.png" alt="Logo" class="logo">
+				<img src="/pictures/logo.gif" alt="Logo" class="logo">
 				<div class="display-4"> YourAnimeList - Annuaire populaire d'animes japonais </div>
 			</div>
 			<button type="button" id="save" v-on:click="retour_sauver"> Sauvegarder les modifications</button>
@@ -39,6 +39,7 @@
 			</div> -->
 			<div class="changement_description">
 				<p> Votre description : {{user.description}} </p>
+				<textarea name="" rows="8" cols="80" v-model=user.description></textarea>
 			</div>
 		</div>
 		<script src="/accueil.js"></script>

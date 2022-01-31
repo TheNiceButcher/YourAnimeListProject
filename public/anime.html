@@ -31,16 +31,33 @@
 				<div class="display-4"> Your Anime List </div>
 			</div>
 			<div class="d-flex justify-content-center">{{anime.nom_anime}}</div>
-      <div class="anime" id="genre">
+      <div class="row d-flex justify-content-center" id="genre">
+				<p>Genre : </p>
+				<ul id="liste_genre">
 
+				</ul>
       </div>
 			<div class="" id="moyenne">
-				<div v-for="note in anime.notes">
-					<p>{{note.note}} <a :href="lien_profil(note.pseudo)">{{note.pseudo}}</a>  <img :src="note.avatar" alt="" class="avatar"> </p>
-				</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Avatar</th>
+				      <th scope="col">Nom Utilisateur</th>
+							<th scope="col">Note</th>
+				    </tr>
+					</thead>
+					<tbody>
+						<tr v-for="note in anime.notes">
+				      <td><img :src="note.avatar" alt="" class="avatar"></td>
+				      <td><a :href="lien_profil(note.pseudo)">{{note.pseudo}}</a></td>
+							<td>{{note.note}}</td>
+    				</tr>
+					</tbody>
+				</table>
+
 			</div>
 			<div class="notes" v-if="user.connecte">
-				<select v-model="anime.note">
+				<select v-model="anime.note_user">
 					<option>Non note</option>
 					<option>0</option>
 					<option>1</option>

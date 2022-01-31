@@ -19,7 +19,7 @@ var animetop = new Vue({
 			nom_anime : '',
 			notes : [],
 			anime_in_user_list: false,
-			notes_user : 'Non Noté'
+			note_user : 'Non Noté'
 		},
 		profil : {
 			profil_courant : "",
@@ -84,6 +84,17 @@ var animetop = new Vue({
 		lien_profil : function(pseudo){
 			return "/user/" + pseudo;
 		},
+		change_note : function(idanime,notes){
+			var r = "pseudo=" + idanime + "&avatar=" + this.user.avatar + "&description=" + this.user.description;
+			$.ajax({
+			  url: '/modif_note',
+			  type: 'PUT',
+			  data: r,
+			  success: function(data) {
+					alert("Modifications enregistrées");
+			  }
+			});
+		},
 		retour_sauver : function () {
 			var r = "pseudo=" + this.user.pseudo + "&avatar=" + this.user.avatar + "&description=" + this.user.description;
 			$.ajax({
@@ -91,7 +102,7 @@ var animetop = new Vue({
 			  type: 'PUT',
 			  data: r,
 			  success: function(data) {
-			    alert('Load was performed.');
+					alert("Modifications enregistrées");
 			  }
 			});
 		}
@@ -151,7 +162,7 @@ function notes(data){
 		for (var i in data){
 			if(data[i].pseudo == animetop.user.pseudo)
 			{
-				animetop.anime.notes_user = data[i].pseudo;
+				animetop.anime.note_user = data[i].note;
 			}
 		}
 	}

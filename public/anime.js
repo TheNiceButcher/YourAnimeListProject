@@ -11,6 +11,6 @@ $.get("/genre",{id : nanime},
 });
 function get_genre_anime(data) {
   for (var i in data) {
-      $("#genre").append("<p>" + data[i].genre + "</p>");
+      $("#liste_genre").append("<div>" + data[i].genre + "</div>");
 }
 };

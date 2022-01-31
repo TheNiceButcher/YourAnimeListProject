@@ -11,19 +11,30 @@
 	</head>
 	<body>
 		<div id="all">
-			<div id="connexion">
+			<div id="connexion" v-if="!user.connecte">
 				<form class="info_connect" action="/connect" method="post">
 					<label for="pseudo">Pseudo</label><input type="text" name="pseudo"> <br>
 					<label for="pwd">Mot de passe</label><input type="password" name="pwd"> <br>
 					<input type="submit" name="" value="Se connecter">
 				</form>
 			</div>
+			<div class="info_connect" v-if="user.connecte">
+					<img class="avatar" v-bind:src="user.avatar" alt="Avatar" id = "profile">
+					<p> Bonjour {{user.pseudo}} </p>
+					<a v-bind:href="user.modif_profil" ><button type="button" name="button">Modifier votre profil</button></a>
+					<form action="/logout" method="get">
+						<input type="submit" name="" value="Se deconnecter">
+					</form>
+			</div>
 			<div class="jumbotron" class="baniere">
 				<img src="/pictures/logo.gif" alt="Logo" class="logo">
 				<div class="display-4"> Your Anime List </div>
 			</div>
-			<h2>Profil de {{profil.profil_courant}}</h2>
-			<div class="description" id="description">
+			<div class="d-flex justify-content-center">Profil de {{profil.profil_courant}}</div>
+			<div class="d-flex justify-content-center">
+				<img :src="profil.avatar" class="avatar"/>
+			</div>
+			<div class="description d-flex justify-content-center" id="description">
 					{{profil.description}}
 			</div>
 			<div class="" id="liste_anime">
