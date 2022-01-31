@@ -1,0 +1,73 @@
+#connexion{
+	position: relative;
+	top: 80px;
+	text-align: right;
+}
+.nouveau_message{
+	position: absolute;
+	left : 35%;
+}
+.publications{
+	vertical-align: middle;
+	box-sizing: border-box;
+	padding-left: 20%;
+}
+.publi{
+	vertical-align: middle;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 10%;
+	margin: 20px;
+	font-family: cursive;
+	background-color: gray;
+	margin-right: 200px;
+}
+.avatar{
+	height: 75px;
+	length: 75px;
+}
+.info_connect{
+	float: right;
+}
+.baniere {
+	align-content: center;
+	height: 300px;
+}
+.msg_erreur{
+	text-align: center;
+}
+.avatar_choix{
+	height: 200px;
+	length: 200px;
+}
+.choix_avatar{
+	position: absolute;
+	right: 10%;
+}
+.logo{
+	height: 95px;
+	length: 95px;
+	position: absolute;
+	top: 50px;
+}
+.display-4{
+	padding-left: 100px;
+}
+#save{
+	position: absolute;
+	left: 40%;
+}
+#home{
+	position: absolute;
+	right: 40%;
+}
+.titre_page{
+		align-content: center;
+}
+.bouton_home{
+	margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
