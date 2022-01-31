@@ -208,6 +208,46 @@ server.post("/ajout_liste/:pseudo/",function (req,res) {
 		}
   })
 });
+server.post("/retrait_liste/:pseudo/",function (req,res) {
+  var id_anime = req.body.nanime;
+  console.log(req.body.nanime);
+  var requete = "DELETE FROM AnimeList WHERE pseudo LIKE \'" + req.params.pseudo + "\' AND nanime = " + id_anime + ";";
+  var r = client.query(requete,function (err,resp) {
+		if(err){
+			console.log(err);
+			return;
+		}
+  })
+});
+server.get("/yourprofile/",function (req,res,next) {
+  console.log(req.cookies.username);
+  if(req.cookies.username == undefined)
+  {
+    next();
+  }
+  else
+  res.sendFile("modif_profil.html",{root:"public"});
+});
+server.put("/modif_profil",function(req,res){
+  var p = req.body;
+  var requete = "UPDATE Utilisateur SET avatar ='" + p.avatar + "', description = '" + p.description + "';";
+  var r = client.query(requete,function (err,resp) {
+		if(err){
+			console.log(err);
+			return;
+		}
+  });
+});
+server.get("/info_user",function (req,res) {
+  var requete = 'SELECT description,avatar FROM Utilisateur WHERE pseudo LIKE \'' + req.query.pseudo + '\';';
+  var r = client.query(requete,function (err,resp) {
+		if(err){
+			console.log(err);
+			return;
+		}
+    res.json(resp.rows);
+  });
+});
 server.use(function (req,res) {
 	res.sendFile("erreur.html",{root:"public"});
 });

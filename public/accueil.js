@@ -11,7 +11,7 @@ var animetop = new Vue({
 			pseudo : '',
 			avatar : '',
 			list : [],
-			modif_profil : '/yourprofil/',
+			modif_profil : '/yourprofile',
 			description : ""
 		},
 		anime: {
@@ -83,6 +83,17 @@ var animetop = new Vue({
 		},
 		lien_profil : function(pseudo){
 			return "/user/" + pseudo;
+		},
+		retour_sauver : function () {
+			var r = "pseudo=" + this.user.pseudo + "&avatar=" + this.user.avatar + "&description=" + this.user.description;
+			$.ajax({
+			  url: '/modif_profil',
+			  type: 'PUT',
+			  data: r,
+			  success: function(data) {
+			    alert('Load was performed.');
+			  }
+			});
 		}
 	},
 
@@ -156,6 +167,7 @@ function listeanime(data){
 	}
 	animetop.user.anime_in_user_list = false;
 }
+
 $(document).ready(function () {
 	var url = window.location.href;
 	if(url.includes("?error"))
@@ -171,7 +183,24 @@ function get_name_client() {
 		var i = cookie.lastIndexOf('=')+1;
 		animetop.user.connecte = true;
 		animetop.user.pseudo = cookie.substring(i);
-		animetop.user.modif_profil += animetop.user.pseudo;
-	}
-};
+		$.get("/info_user",{pseudo : animetop.user.pseudo},function(data){
+				mis_a_jouruser(data);
+			});
+		function mis_a_jouruser(data){
+			console.log(data[0].description);
+			animetop.user.description = data[0].description;
+			animetop.user.avatar = data[0].avatar;
+		}
+		}
+	};
 get_name_client();
+if(animetop.user.connete){
+	$.get("/info_user",{pseudo : animetop.user.pseudo},function(data){
+		mis_a_jouruser(data);
+	});
+	function mis_a_jouruser(data){
+		console.log(data[0].description);
+		animetop.user.description = data[0].description;
+		animetop.user.avatar = data[0].avatar;
+	}
+}
