@@ -80,6 +80,9 @@ var animetop = new Vue({
 			$.post("/ajout_liste/" + this.user.pseudo,{nanime : nanime},function(data){
 
 			});
+		},
+		lien_profil : function(pseudo){
+			return "/user/" + pseudo;
 		}
 	},
 

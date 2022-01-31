@@ -36,7 +36,7 @@
       </div>
 			<div class="" id="moyenne">
 				<div v-for="note in anime.notes">
-					<p>{{note.note}} {{note.pseudo}} </p>
+					<p>{{note.note}} <a :href="lien_profil(note.pseudo)">{{note.pseudo}}</a> </p>
 				</div>
 			</div>
 			<div class="notes" v-if="user.connecte">

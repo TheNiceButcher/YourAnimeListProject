@@ -12,7 +12,11 @@ function infos_user(data) {
   var description = data[0].description;
   animetop.profil.description = description;
   animetop.profil.avatar = data[0].avatar;
-  
-
+  var list = [];
+  for (var i in data)
+  {
+    list.push({nanime : data[i].nanime,nom : data[i].nom});
+  }
+  animetop.profil.liste = list;
 
 }

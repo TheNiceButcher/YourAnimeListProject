@@ -151,7 +151,7 @@ server.get("/home/:pseudo",function (req,res,next) {
 }
 });
 server.get("/utilisateur/:pseudo",function (req,res) {
-  var requete = 'SELECT * FROM Utilisateur NATURAL JOIN AnimeList WHERE pseudo LIKE \'' + req.params.pseudo + '\';';
+  var requete = 'SELECT * FROM Utilisateur NATURAL JOIN AnimeList NATURAL JOIN Animes WHERE pseudo LIKE \'' + req.params.pseudo + '\';';
   var r = client.query(requete,function (err,resp) {
 		if(err){
 			console.log(err);

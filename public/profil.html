@@ -27,7 +27,7 @@
 					{{profil.description}}
 			</div>
 			<div class="" id="liste_anime">
-				
+				<div v-for="anime in profil.liste">{{anime.nanime}} <a :href="lien(anime.nanime)">{{anime.nom}}</div>
 			</div>
 		</div>
 		<script src="/accueil.js"></script>
