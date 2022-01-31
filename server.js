@@ -187,7 +187,7 @@ server.get("/logout",function (req,res) {
   return res.redirect("/");
 })
 server.get("/notes",function(req,res){
-  var requete = 'SELECT * FROM Notes WHERE nanime = ' + req.query.id + ';';
+  var requete = 'SELECT nanime,note,pseudo,avatar FROM Notes Natural Join Utilisateur WHERE nanime = ' + req.query.id + ';';
 	var r = client.query(requete,function (err,resp) {
 		if(err){
 			console.log(err);

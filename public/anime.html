@@ -30,13 +30,13 @@
 				<img src="/pictures/logo.gif" alt="Logo" class="logo">
 				<div class="display-4"> Your Anime List </div>
 			</div>
-			<h2>{{anime.nom_anime}}</h2>
+			<div class="d-flex justify-content-center">{{anime.nom_anime}}</div>
       <div class="anime" id="genre">
 
       </div>
 			<div class="" id="moyenne">
 				<div v-for="note in anime.notes">
-					<p>{{note.note}} <a :href="lien_profil(note.pseudo)">{{note.pseudo}}</a> </p>
+					<p>{{note.note}} <a :href="lien_profil(note.pseudo)">{{note.pseudo}}</a>  <img :src="note.avatar" alt="" class="avatar"> </p>
 				</div>
 			</div>
 			<div class="notes" v-if="user.connecte">
