@@ -8,7 +8,7 @@ var bodyparser = require('body-parser');
 const {Client} = require('pg');
 const client = new Client({
   user: 'lelouch',
-  host: 'localhost',
+  host: 'postgres',
   database: 'youranimelistdb',
   password: 'Lemeilleur',
   port: 5432,
@@ -65,7 +65,7 @@ server.get("/anime/:id",function(req,res,next){
   });
 });
 server.get("/list",function(req,res){
-  var requete = 'SELECT nanime FROM AnimeList WHERE pseudo LIKE \'' + req.query.pseudo + '\';';
+  var requete = 'SELECT nanime,nom FROM AnimeList NATURAL JOIN Animes WHERE pseudo LIKE \'' + req.query.pseudo + '\';';
   var r = client.query(requete,function (err,resp) {
 		if(err){
 			console.log(err);
@@ -151,7 +151,7 @@ server.get("/home/:pseudo",function (req,res,next) {
 }
 });
 server.get("/utilisateur/:pseudo",function (req,res) {
-  var requete = 'SELECT * FROM Utilisateur NATURAL JOIN AnimeList NATURAL JOIN Animes WHERE pseudo LIKE \'' + req.params.pseudo + '\';';
+  var requete = 'SELECT * FROM Utilisateur WHERE pseudo LIKE \'' + req.params.pseudo + '\';';
   var r = client.query(requete,function (err,resp) {
 		if(err){
 			console.log(err);
@@ -250,7 +250,16 @@ server.get("/info_user",function (req,res) {
 });
 server.put("/modif_note",function (req,res) {
   var requete = 'DELETE FROM Notes WHERE pseudo Like \'' + req.body.pseudo + '\' AND nanime = ' + req.body.nanime + ";";
-  requete += "INSERT INTO ";
+  if (req.body.note !== "Non Noté")
+  {
+    requete += "INSERT INTO Notes(pseudo,note,nanime) VALUES ('"+ req.body.pseudo + "', " + req.body.note + "," + req.body.nanime + ");";
+  }
+  var r = client.query(requete,function (err,resp) {
+		if(err){
+			console.log(err);
+			return;
+		}
+  });
 });
 server.use(function (req,res) {
 	res.sendFile("erreur.html",{root:"public"});

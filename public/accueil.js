@@ -19,12 +19,14 @@ var animetop = new Vue({
 			nom_anime : '',
 			notes : [],
 			anime_in_user_list: false,
-			note_user : 'Non Noté'
+			note_user : 'Non Noté',
+			new_note_user : 'Non Noté'
 		},
 		profil : {
 			profil_courant : "",
 			liste : [],
 			notes : [],
+			avatar : "",
 			description : ""
 		},
 		dernier_import : new Date("1970-11-25")
@@ -105,6 +107,17 @@ var animetop = new Vue({
 					alert("Modifications enregistrées");
 			  }
 			});
+		},
+		update_note : function() {
+			var r = "pseudo=" + this.user.pseudo + "&note=" + this.anime.new_note_user + "&nanime=" + this.anime.anime_courant;
+			$.ajax({
+			  url: '/modif_note',
+			  type: 'PUT',
+			  data: r,
+			  success: function(data) {
+					alert("Modifications enregistrées");
+			  }
+			});
 		}
 	},
 
@@ -130,7 +143,12 @@ var animetop = new Vue({
 				$.get("/list",{pseudo : this.user.pseudo},function(data){
 					listeanime(data);
 				});
-			};
+			}
+			if(this.profil.profil_courant !== ""){
+				$.get("/list",{pseudo : this.profil.profil_courant},function(data){
+					listeanimeprofil(data);
+				});
+			}
 			this.dernier_import = new Date();
 		},1000);
 	}
@@ -178,7 +196,9 @@ function listeanime(data){
 	}
 	animetop.user.anime_in_user_list = false;
 }
-
+function listeanimeprofil(data){
+	animetop.profil.liste = data;
+}
 $(document).ready(function () {
 	var url = window.location.href;
 	if(url.includes("?error"))

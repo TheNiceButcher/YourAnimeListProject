@@ -37,8 +37,29 @@
 			<div class="description d-flex justify-content-center" id="description">
 					{{profil.description}}
 			</div>
-			<div class="" id="liste_anime">
-				<div v-for="anime in profil.liste">{{anime.nanime}} <a :href="lien(anime.nanime)">{{anime.nom}}</div>
+			<div id="liste_anime">
+				<h2>La liste de {{profil.profil_courant}}</h2>
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+				      <th scope="col">Nom</th>
+							<th scope="col">Genre</th>
+				      <th scope="col">Moyenne / 5</th>
+							<th scope="col" v-if="user.connecte">Liste</th>
+				    </tr>
+					</thead>
+					<tbody>
+						<tr v-for="anime in profil.liste" >
+				      <td>{{anime.nanime}}</td>
+				      <td><a :href="lien(anime.nanime)">{{anime.nom}}</a></td>
+							<td>{{getgenre(anime.nanime)}}</td>
+							<td>{{getmoyenne(anime.nanime)}}</td>
+							<td v-if="user.connecte"><button v-on:click='ajout_list(anime.nanime)' v-if="!est_dans_liste_user(anime.nanime)">Ajouter</button>
+								<button v-on:click='retrait_liste(anime.nanime)' v-if="est_dans_liste_user(anime.nanime)">Enlever</button></td>
+    				</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<script src="/accueil.js"></script>
