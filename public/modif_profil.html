@@ -13,9 +13,9 @@
 		<div id="all">
 			<div class="info_connect">
 					<img class="avatar" v-bind:src="client.avatar" alt="Avatar" id = "profile">
-					<p> Bonjour {{client.pseudo}} </p>
+					<p> Bonjour {{user.pseudo}} </p>
 					<button type="button" name="button">Modifier votre profil</button>
-					<form action="/" method="get">
+					<form action="/logout" method="get">
 						<input type="submit" name="" value="Se deconnecter">
 					</form>
 			</div>
@@ -38,7 +38,7 @@
 				<button type="button" id="color-defaut">Par défaut</button>
 			</div>
 		</div>
-		<script src="/twatter.js"></script>
+		<script src="/user.js"></script>
 		<script src="/modif.js"></script>
 	</body>
 </html>

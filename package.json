@@ -1,8 +1,11 @@
 {
   "dependencies": {
     "body-parser": "^1.19.1",
+    "cookie-parser": "^1.4.6",
+    "cookieparser": "^0.1.0",
     "express": "^4.17.2",
     "fs": "^0.0.1-security",
+    "helmet": "^5.0.2",
     "json": "^11.0.0",
     "pg": "^8.7.1"
   },
@@ -22,5 +25,6 @@
   "bugs": {
     "url": "https://github.com/TheNiceButcher/YourAnimeListProject/issues"
   },
-  "homepage": "https://github.com/TheNiceButcher/YourAnimeListProject#readme"
+  "homepage": "https://github.com/TheNiceButcher/YourAnimeListProject#readme",
+  "devDependencies": {}
 }

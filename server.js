@@ -2,6 +2,8 @@ const express = require('express');
 const server = new express();
 const json = require('json');
 const fs = require('fs');
+const helmet = require("helmet");
+const cookieparser = require("cookie-parser");
 var bodyparser = require('body-parser');
 const {Client} = require('pg');
 const client = new Client({
@@ -13,6 +15,7 @@ const client = new Client({
 });
 client.connect();
 server.use(express.static('public'));
+server.use(cookieparser());
 server.use(bodyparser.urlencoded({ extended: false }));
 fs.readFile('bdd.sql', 'utf8' , (err, data) => {
   if (err) {
@@ -29,7 +32,6 @@ server.get("/",function (req,res) {
 	res.sendFile('accueil.html',{root:"public"});
 });
 server.get("/animes",function (req,res) {
-    //res.json(animes);
     var d = req.query.date;
     var requete = 'SELECT * FROM Animes;';
     var r = client.query(requete,function(err,resp){
@@ -57,7 +59,9 @@ server.get("/anime/:id",function(req,res,next){
 		{
 			next();
 		}
-		else res.sendFile("anime.html",{root : "public"});
+		else {
+      res.sendFile("anime.html",{root : "public"});
+    }
   });
 });
 server.get("/list/:pseudo",function(req,res){
@@ -71,7 +75,7 @@ server.get("/list/:pseudo",function(req,res){
 		res.json(r);
 	});
 });
-server.get("/profile/:pseudo",function(req,res,next){
+server.get("/user/:pseudo",function(req,res,next){
   var requete = 'SELECT pseudo FROM Utilisateur WHERE pseudo = \'' + req.params.pseudo + '\';';
   var r = client.query(requete,function (err,resp) {
 		if(err){
@@ -85,7 +89,7 @@ server.get("/profile/:pseudo",function(req,res,next){
 		}
 		else
 		{
-			res.send('Connecté frerot');
+			res.sendFile('profil.html',{root: "public"});
 		}
 	});
 });
@@ -123,6 +127,11 @@ server.get("/genre",function(req,res){
 	});
 });
 server.get("/home/:pseudo",function (req,res,next) {
+  console.log(req.cookies);
+  if (req.cookies.username !== req.params.pseudo){
+    next();
+  }
+  else {
   var requete = 'SELECT * FROM Utilisateur WHERE pseudo LIKE \'' + req.params.pseudo + '\';';
   var r = client.query(requete,function (err,resp) {
 		if(err){
@@ -138,6 +147,18 @@ server.get("/home/:pseudo",function (req,res,next) {
 		{
 			res.sendFile("accueil.html",{root:"public"});;
 		}
+	});
+}
+});
+server.get("/utilisateur/:pseudo",function (req,res) {
+  var requete = 'SELECT * FROM Utilisateur NATURAL JOIN Animes WHERE pseudo LIKE \'' + req.params.pseudo + '\';';
+  var r = client.query(requete,function (err,resp) {
+		if(err){
+			console.log(err);
+			return;
+		}
+		var r = resp.rows;
+		res.json(r);
 	});
 });
 //Demande de connexion
@@ -156,9 +177,35 @@ server.post("/connect",function (req,res) {
 		}
 		else
 		{
+      res.cookie("username", req.body.pseudo);
 			res.redirect("/home/" + req.body.pseudo);
 		}
 	});
+});
+server.get("/logout",function (req,res) {
+  res.clearCookie("username");
+  return res.redirect("/");
+})
+server.get("/notes",function(req,res){
+  var requete = 'SELECT * FROM Notes WHERE nanime = ' + req.query.id + ';';
+	var r = client.query(requete,function (err,resp) {
+		if(err){
+			console.log(err);
+			return;
+		}
+		var r = resp.rows;
+		res.json(r);
+	});
+});
+server.post("/ajout_list/:pseudo/",function (req,res) {
+  var id_anime = req.body.nanime;
+  var requete = "INSERT INTO AnimeList(pseudo,nanime) VALUES (" + req.params.pseudo + ", " + id_anime + ");";
+  var r = client.query(requete,function (err,resp) {
+		if(err){
+			console.log(err);
+			return;
+		}
+  })
 });
 server.use(function (req,res) {
 	res.sendFile("erreur.html",{root:"public"});

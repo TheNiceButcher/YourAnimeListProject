@@ -4,6 +4,7 @@ function getnanime() {
   return url.substring(i);
 };
 const nanime = getnanime();
+animetop.anime.anime_courant = nanime;
 $.get("/genre",{id : nanime},
   function (data) {
   	get_genre_anime(data);
@@ -11,5 +12,5 @@ $.get("/genre",{id : nanime},
 function get_genre_anime(data) {
   for (var i in data) {
       $("#genre").append("<p>" + data[i].genre + "</p>");
-  }
+}
 };

@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<title>YourAnimeList - Vos animes préférés à porté de main</title>
 		<link rel="icon" type="image/png" href="/pictures/logo.gif"/>
-		<link rel="stylesheet" href="twatter.css">
+		<link rel="stylesheet" href="/twatter.css">
 		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
@@ -19,10 +19,10 @@
 				</form>
 			</div>
 			<div class="info_connect" v-if="user.connecte">
-					<!--<img class="avatar" v-bind:src="client.avatar" alt="Avatar" id = "profile"> -->
+					<img class="avatar" v-bind:src="user.avatar" alt="Avatar" id = "profile">
 					<p> Bonjour {{user.pseudo}} </p>
-					<!--<a v-bind:href="client.modif_profil" ><button type="button" name="button">Modifier votre profil</button></a> -->
-					<form action="/" method="get">
+					<a v-bind:href="user.modif_profil" ><button type="button" name="button">Modifier votre profil</button></a>
+					<form action="/logout" method="get">
 						<input type="submit" name="" value="Se deconnecter">
 					</form>
 			</div>
@@ -55,6 +55,6 @@
 				</table>
 			</div>
 		</div>
-		<script src="accueil.js"></script>
+		<script src="/accueil.js"></script>
 	</body>
 </html>
