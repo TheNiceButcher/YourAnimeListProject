@@ -65,6 +65,9 @@ var animetop = new Vue({
 				}
 			}
 		},
+		gethome: function() {
+			return "/home/" + this.user.pseudo
+		},
 		est_dans_liste_user : function (nanime) {
 			for(var i = 0; i < this.user.list.length; i++)
 			{
