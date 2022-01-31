@@ -8,7 +8,7 @@ var bodyparser = require('body-parser');
 const {Client} = require('pg');
 const client = new Client({
   user: 'lelouch',
-  host: 'postgres',
+  host: 'localhost',
   database: 'youranimelistdb',
   password: 'Lemeilleur',
   port: 5432,
@@ -64,8 +64,8 @@ server.get("/anime/:id",function(req,res,next){
     }
   });
 });
-server.get("/list/:pseudo",function(req,res){
-  var requete = 'SELECT nanime FROM AnimeList WHERE pseudo = \'' + req.params.pseudo + '\';';
+server.get("/list",function(req,res){
+  var requete = 'SELECT nanime FROM AnimeList WHERE pseudo LIKE \'' + req.query.pseudo + '\';';
   var r = client.query(requete,function (err,resp) {
 		if(err){
 			console.log(err);
@@ -151,7 +151,7 @@ server.get("/home/:pseudo",function (req,res,next) {
 }
 });
 server.get("/utilisateur/:pseudo",function (req,res) {
-  var requete = 'SELECT * FROM Utilisateur NATURAL JOIN Animes WHERE pseudo LIKE \'' + req.params.pseudo + '\';';
+  var requete = 'SELECT * FROM Utilisateur NATURAL JOIN AnimeList WHERE pseudo LIKE \'' + req.params.pseudo + '\';';
   var r = client.query(requete,function (err,resp) {
 		if(err){
 			console.log(err);
@@ -197,9 +197,10 @@ server.get("/notes",function(req,res){
 		res.json(r);
 	});
 });
-server.post("/ajout_list/:pseudo/",function (req,res) {
+server.post("/ajout_liste/:pseudo/",function (req,res) {
   var id_anime = req.body.nanime;
-  var requete = "INSERT INTO AnimeList(pseudo,nanime) VALUES (" + req.params.pseudo + ", " + id_anime + ");";
+  console.log(req.body.nanime);
+  var requete = "INSERT INTO AnimeList(pseudo,nanime) VALUES (\'" + req.params.pseudo + "\', " + id_anime + ");";
   var r = client.query(requete,function (err,resp) {
 		if(err){
 			console.log(err);

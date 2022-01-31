@@ -39,6 +39,18 @@
 					<p>{{note.note}} {{note.pseudo}} </p>
 				</div>
 			</div>
+			<div class="notes" v-if="user.connecte">
+				<select v-model="anime.note">
+					<option>Non note</option>
+					<option>0</option>
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+				<button type="button" name="button">Confirmer votre note</button>
+			</div>
 		</div>
     <script src="/accueil.js"></script>
 		<script src="/anime.js"></script>

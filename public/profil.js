@@ -8,6 +8,11 @@ $.get("/utilisateur/" + animetop.profil.profil_courant,function (data) {
     infos_user(data);
 });
 function infos_user(data) {
+  console.log(data);
   var description = data[0].description;
-  $("description").html("<p>" + description + "</p>");
+  animetop.profil.description = description;
+  animetop.profil.avatar = data[0].avatar;
+  
+
+
 }

@@ -39,17 +39,17 @@
 				      <th scope="col">Nom</th>
 							<th scope="col">Genre</th>
 				      <th scope="col">Moyenne / 5</th>
+							<th scope="col" v-if="user.connecte">Liste</th>
 				    </tr>
 					</thead>
 					<tbody>
-						<!--<anime
-							v-for="anime in animes" v-bind:anime="anime" v-bind:moyenne="moyenne">
-						</anime>-->
 						<tr v-for="anime in animes" v-if="afficher(anime)">
 				      <td>{{anime.nanime}}</td>
 				      <td><a :href="lien(anime.nanime)">{{anime.nom}}</a></td>
 							<td>{{getgenre(anime.nanime)}}</td>
 							<td>{{getmoyenne(anime.nanime)}}</td>
+							<td v-if="user.connecte"><button v-on:click='ajout_list(anime.nanime)' v-if="!est_dans_liste_user(anime.nanime)">Ajouter</button>
+								<button v-on:click='retrait_liste(anime.nanime)' v-if="est_dans_liste_user(anime.nanime)">Enlever</button></td>
     				</tr>
 					</tbody>
 				</table>

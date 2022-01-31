@@ -10,17 +10,22 @@ var animetop = new Vue({
 			connecte : false,
 			pseudo : '',
 			avatar : '',
-			modif_profil : '/yourprofil/'
+			list : [],
+			modif_profil : '/yourprofil/',
+			description : ""
 		},
 		anime: {
 			anime_courant : -1,
 			nom_anime : '',
 			notes : [],
+			anime_in_user_list: false,
+			notes_user : 'Non Noté'
 		},
 		profil : {
 			profil_courant : "",
 			liste : [],
-			notes : ""
+			notes : [],
+			description : ""
 		},
 		dernier_import : new Date("1970-11-25")
 	},
@@ -57,6 +62,24 @@ var animetop = new Vue({
 					return this.animes[i].nom;
 				}
 			}
+		},
+		est_dans_liste_user : function (nanime) {
+			for(var i = 0; i < this.user.list.length; i++)
+			{
+				if(this.user.list[i].nanime == nanime)
+					return true;
+			}
+			return false;
+		},
+		retrait_liste : function (nanime) {
+			$.post("/retrait_liste/" + this.user.pseudo,{nanime : nanime},function(data){
+
+			});
+		},
+		ajout_list : function(nanime) {
+			$.post("/ajout_liste/" + this.user.pseudo,{nanime : nanime},function(data){
+
+			});
 		}
 	},
 
@@ -64,7 +87,7 @@ var animetop = new Vue({
 		setInterval(() => {
 			var d = this.dernier_import;
 			$.get("/animes/",function (data) {
-				ajout_anime(data);
+				animes(data);
 			});
 			$.get("/note_moy",function (data) {
 				moyenne(data);
@@ -77,12 +100,17 @@ var animetop = new Vue({
 				$.get("/notes",{id :this.anime.anime_courant},function(data){
 					notes(data);
 				});
-			}
+			};
+			if(this.user.connecte){
+				$.get("/list",{pseudo : this.user.pseudo},function(data){
+					listeanime(data);
+				});
+			};
 			this.dernier_import = new Date();
 		},1000);
 	}
 });
-function ajout_anime(data) {
+function animes(data) {
 	animetop.animes = data;
 	if (animetop.anime.anime_courant != -1)
 	{
@@ -104,6 +132,26 @@ function genre(data) {
 }
 function notes(data){
 	animetop.anime.notes = data;
+	if (animetop.user.connecte)
+	{
+		for (var i in data){
+			if(data[i].pseudo == animetop.user.pseudo)
+			{
+				animetop.anime.notes_user = data[i].pseudo;
+			}
+		}
+	}
+}
+function listeanime(data){
+	animetop.user.list = data;
+	for (var i in data){
+		if (data[i].nanime == animetop.anime.anime_courant)
+		{
+			animetop.user.anime_in_user_list = true;
+			return
+		}
+	}
+	animetop.user.anime_in_user_list = false;
 }
 $(document).ready(function () {
 	var url = window.location.href;
@@ -117,7 +165,6 @@ function get_name_client() {
 	var url = window.location.href;
 	const cookie = document.cookie;
 	if(cookie != ""){
-		console.log("Cookie present");
 		var i = cookie.lastIndexOf('=')+1;
 		animetop.user.connecte = true;
 		animetop.user.pseudo = cookie.substring(i);
